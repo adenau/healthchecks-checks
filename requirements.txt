@@ -12,10 +12,12 @@ pkginfo==1.6.1
 psutil==5.7.3
 Pygments==2.7.2
 pyparsing==2.4.7
+pySMART==1.0
 readme-renderer==28.0
 requests==2.25.0
 requests-toolbelt==0.9.1
 rfc3986==1.4.0
+simplezfs==0.0.2
 six==1.15.0
 tqdm==4.51.0
 twine==3.2.0
