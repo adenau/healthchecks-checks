@@ -31,3 +31,5 @@ To create packages
 To upload
 
   python3 -m twine upload --repository testpypi dist/*
+
+check https://packaging.python.org/tutorials/packaging-projects/ to move off testing repos
