@@ -7,18 +7,34 @@
 import argparse
 import requests
 import sys
+import psutil
 
 # create parser
 parser = argparse.ArgumentParser(description="Process Check")
 parser.add_argument("uuid", help="UUID of the check")
 parser.add_argument("process_name", help="name of the process")
 
-
 # parse the arguments
 args = parser.parse_args()
+found = False
+hc_url = "https://hc-ping.com/" + args.uuid
+
+for proc in psutil.process_iter():
+    try:
+        processName = proc.name()
+        
+        if (processName.find(args.process_name) >= 0):
+            found = True
+    except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+        pass
+
+print(found)
+
+if (found == False):
+    hc_url = hc_url + "/fail"
 
 try:
-    r = requests.get("https://hc-ping.com/" + args.uuid, timeout=10, headers={"User-Agent": 'Python'})
+    r = requests.get(hc_url, timeout=10, headers={"User-Agent": 'Python'})
     status = r.status_code
 except requests.exceptions.ConnectionError:
     sys.stderr.write("Connection error\n")
